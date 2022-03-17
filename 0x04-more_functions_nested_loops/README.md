@@ -1,1 +1,1 @@
-more function of nested loop
+Readme_create nested loops in C
