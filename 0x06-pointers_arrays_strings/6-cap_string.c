@@ -1,32 +1,34 @@
 #include "main.h"
-
 /**
- * cap_string - This function capitalizes all words of a string
- * @s: String to evaluate
- * Return: The string converted
+ * cap_string - capitalizes all words of a string
+ * @str: the string to change the first letter of a word in uppercase
+ *
+ * Return: capitalizes letters
  */
-
-char *cap_string(char *s)
+char *cap_string(char *str)
 {
-	int i;
+int i;
+int j;
+char c[] = {44, 59, 46, 33, 63, 34, 40, 41, 123, 125, 32, 10, 9};
 
-	/* make sure the first letter is capitalized */
-	if (s[0] >= 'a' && s[0] <= 'z')
-		s[0] = s[0] - ' ';
+i = 0;
 
-	for (i = 1; s[i] != '\0'; i++)
+while (str[i] != '\0')
+{
+if (i == 0 && str[i] >= 97 && str[i] <= 122)
+{
+str[i] = str[i] - 32;
+}
+j = 0;
+while (c[j] != '\0')
 	{
-		/* see if the element before is a separator */
-		if ((s[i - 1] == ' ' || s[i - 1] == '\n' || s[i - 1] == '\t'
-		     || s[i - 1] == ',' || s[i - 1] == ';' || s[i - 1] == '!'
-		     || s[i - 1] == '?' || s[i - 1] == '"' || s[i - 1] == '('
-		     || s[i - 1] == ')' || s[i - 1] == '{' || s[i - 1] == '}'
-		     || s[i - 1] == '.') && (s[i] > 'a' && s[i] < 'z'))
-		{
-			/* if it is, convert the s[i] element to uppercase */
-			s[i] = s[i] - ' ';
-		}
-	}
-
-	/* return the converted string */
-
+if (c[j] == str[i] && (str[i + 1] >= 97 && str[i + 1] <= 122))
+{
+str[i + 1] = str[i + 1] - 32;
+}
+j++;
+}
+i++;
+}
+return (str);
+}
