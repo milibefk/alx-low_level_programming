@@ -1,46 +1,52 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * argstostr - concatenates all the arguments of your program
- *@ac: number of arguments
- *@av: arguments
- * Return: a pointer to a new string
- */
+* char *argstostr - concatenates all the arguments of a program.
+* @ac: arguments counter
+* @av: argument matrix
+* Return: a pointer to a new string, or NULL if it fails.
+* also return NULL  if ac = 0 or av = NULL
+**/
+
 char *argstostr(int ac, char **av)
 {
-int i;
-int j;
-char *p = NULL;
-int k;
-int ext;
+	int i, j, count;
+	char *s;
 
-k = 0;
-ext = 0;
-if (ac == 0 || av == NULL)
-return (NULL);
-for (i = 0; i < ac; i++)
-{
-for (j = 0; av[i][j] != '\0'; j++)
-{
-ext++;
-}
-}
+	count = 0;
 
-p = (char *)malloc(ext + ac + 1 * sizeof(char));
-if (p == NULL)
-return (NULL);
-for (i = 0; i < ac; i++)
-{
-for (j = 0; av[i][j] != '\0'; j++)
-{
-p[k] = av[i][j];
-k++;
-}
-p[k] = '\n';
-k++;
-}
-p[k] = '\0';
-return (p);
+	if (ac == 0 || av == NULL)
+	{
+		return (NULL);
+	}
+	for (i = 0; i < ac; i++)
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			j++;
+			count++;
+		}
+		count++;
+	}
+	s = malloc(sizeof(char) * count + 1);
+	if (s != NULL)
+	{
+		count = 0;
+		for (i = 0; i < ac; i++)
+		{
+			j = 0;
+			while (av[i][j])
+			{
+				s[count] = av[i][j];
+				count++;
+				j++;
+			}
+		s[count] = '\n';
+		count++;
+		}
+	return (s);
+	}
+	return (NULL);
 }
