@@ -49,7 +49,6 @@ char **strtow(char *str)
 			str++;
 		}
 		len = 0;
-
 		while (*(str + len) != ' ' && *(str + len))
 		{
 			len += 1;
