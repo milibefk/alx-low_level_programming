@@ -1,5 +1,17 @@
 #include <stdlib.h>
 
+/**
+ * argstostr - Concatenates all the arguments of the program
+ *
+ * @ac: Argument total count
+ *
+ * @av: Pointer to arguments
+ *
+ * Retunr: Pointer to concatenated string (SUCCESS) or
+ * NULL if @ac == 0 or @av == NULL (FAILURE) or
+ * NULL if if insufficient memory was available (FAILURE)
+ */
+
 char *argstostr(int ac, char **av)
 {
 	int i, j;
@@ -13,7 +25,7 @@ char *argstostr(int ac, char **av)
 	for (i = 0; i < ac; i++)
 	{
 		for (j = 0; av[i][j] != '\0'; j++)
-		t_count++;
+			t_count++;
 
 		t_count++;
 	}
@@ -35,5 +47,5 @@ char *argstostr(int ac, char **av)
 	}
 
 	result[t_count] = '\0';
-        return (result);
+	return (result);
 }
