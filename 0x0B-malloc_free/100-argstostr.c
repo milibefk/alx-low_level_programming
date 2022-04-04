@@ -1,56 +1,41 @@
 #include "main.h"
-/**
-* argstostr - function that concatenates all arguments of a program
-* @ac: count of args passed to the function
-* @av:array of arguments
-* Return: pointer to the new string
-*/
+#include "stdlib.h"
+#include "stddef.h"
 
+/**
+ * argstostr - concatenate all arguments into a new string
+ * @ac: the argument count
+ * @av: the argument vector
+ *
+ * Return: NULL memory allocation fails, ac is 0 or av is NULL,
+ * otherwise return s pointer to the new string
+ */
 char *argstostr(int ac, char **av)
 {
-		char *new_string = NULL;
-		int k = 0, i = ac, j, sum = 0, temp = 0;
+	char *cat, *chr;
+	int arg, size;
 
-		if (ac == 0 || av == NULL)
-			return (NULL);
+	if (!ac || !av)
+		return (NULL);
 
-		while (ac--)
-			sum += (len(av[ac]) + 1);
-		new_string = (char *) malloc(sum + 1);
+	for (arg = 0, size = 1; arg < ac; ++arg, ++size)
+	{
+		for (chr = av[arg]; *chr; ++chr, ++size)
+			;
+	}
 
-		if (new_string != NULL)
-		{
-			while (k < i)
-			{
-				for (j = 0; av[k][j] != '\0'; j++)
-					new_string[j + temp] = av[k][j];
-				new_string[temp + j] = '\n';
-				temp += (j + 1);
-				k++;
-			}
-			new_string[temp] = '\0';
-		}
-		else
-		{
-			return (NULL);
-		}
-		return (new_string);
-}
+	cat = (char *) malloc(sizeof(char) * size);
 
-/**
-* len - returns length of str
-* @str: string
-* Return: the length
-*/
+	if (!cat)
+		return (NULL);
 
-int len(char *str)
-{
-		int len = 0;
+	for (arg = 0, size = 0; arg < ac; ++arg, ++size)
+	{
+		for (chr = av[arg]; *chr; ++chr, ++size)
+			cat[size] = *chr;
+		cat[size] = '\n';
+	}
 
-		if (str != NULL)
-		{
-			while (str[len])
-				len++;
-		}
-	return (len);
+	cat[size] = '\0';
+	return (cat);
 }
