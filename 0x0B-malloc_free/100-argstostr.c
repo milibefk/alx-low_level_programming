@@ -12,7 +12,7 @@
  * NULL if if insufficient memory was available (FAILURE)
  */
 
-char *argstostr(int ac, char **av)
+void char *argstostr(int ac, char **av)
 {
 	int i, j;
 	int count = 0;
