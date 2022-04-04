@@ -1,4 +1,11 @@
 #include <stdlib.h>
+
+/**
+ * strtow - char
+ * @str: pointer to string params
+ * Return: char
+ */
+
 char **strtow(char *str)
 {
 	int i = 0, j = 0, k = 0;
@@ -72,6 +79,6 @@ char **strtow(char *str)
 			j++;
 		}
 	}
-	*(f + j) = NULL;
-	return (f);
+	 *(f + j) = NULL;
+	 return (f);
 } 
