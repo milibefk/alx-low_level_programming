@@ -1,84 +1,51 @@
 #include <stdlib.h>
 
 /**
- * strtow - char
- * @str: pointer to string params
- * Return: char
+ * argstostr - Concatenates all the arguments of the program
+ *
+ * @ac: Argument total count
+ *
+ * @av: Pointer to arguments
+ *
+ * Retunr: Pointer to concatenated string (SUCCESS) or
+ * NULL if @ac == 0 or @av == NULL (FAILURE) or
+ * NULL if if insufficient memory was available (FAILURE)
  */
 
-char **strtow(char *str)
+char *argstostr(int ac, char **av)
 {
-	int i = 0, j = 0, k = 0;
-	int len = 0, count = 0;
-	char **f, *col;
+	int i, j;
+	int count = 0;
+	int t_count = 0;
+	char *result;
 
-	if (!str || !*str)
+	if (ac == 0 || av == NULL)
+		return ('\0');
+
+	for (i = 0; i < ac; i++)
 	{
-		return (NULL);
+		for (j = 0; av[i][j] != '\0'; j++)
+			t_count++;
+
+		t_count++;
 	}
 
-	while (*(str + i))
+	result = malloc(sizeof(char) * t_count + 1);
+
+	if (result == NULL)
 	{
-		if (*(str + i) != ' ')
-		{
-			if (*(str + i + 1) == ' ' || *(str + i + 1) == 0)
-			{
-				count += 1;
-			}
-		}
-		i++;
+		return ('\0');
 	}
 
-	if (count == 0)
+	for (i = 0; i < ac; i++)
 	{
-		return (NULL);
+		for (j = 0; av[i][j] != '\0'; j++)
+		{
+			result[count++] = av[i][j];
+		}
+		result[count++] = '\n';
 	}
-	count += 1;
-	f = malloc(sizeof(char *) * count);
 
-	if (!f)
-	{
-		return (NULL);
-	}
-	i = 0;
-
-	while (*str)
-	{
-		while (*str == ' ' && *str)
-		{
-			str++;
-		}
-		len = 0;
-
-		while (*(str + len) != ' ' && *(str + len))
-		{
-			len += 1;
-		}
-		len += 1;
-		col = malloc(sizeof(char) * len);
-
-		if (!col)
-		{
-			for (k = j - 1; k >= 0; k--)
-			{
-				free(f[k]);
-			}
-			free(f);
-			return (NULL);
-		}
-
-		for (k = 0; k < (len - 1);  k++)
-		{
-			*(col + k) = *(str++);
-		}
-		*(col + k) = '\0';
-		*(f + j) = col;
-
-		if (j < (count - 1))
-		{
-			j++;
-		}
-	}
-	*(f + j) = NULL;
-	return (f);
-} /*yes*/
+	result[t_count] = '\0';
+	return (result);
+}
