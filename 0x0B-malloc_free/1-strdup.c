@@ -10,7 +10,7 @@
  * NUL if insufficient memory was available
  */
 
-char *_strdup(char *str)
+char *_strdup(char **str)
 {
 	char *alloc_mem;
 	unsigned int i;
