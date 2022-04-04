@@ -1,32 +1,52 @@
-#include "main.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
- * argstostr - concatenates arguments.
- * @ac: number of string to be concatenated.
- * @av: strings to be concatenated.
- * Return: String concatenated.
-*/
+ * _strlen - find length of a string
+ * @s: string
+ * Return: int
+ */
+
+
+int _strlen(char *s)
+{
+int size = 0;
+for (; s[size] != '\0'; size++)
+;
+return (size);
+}
+
+/**
+ * *argstostr - description
+ * @ac: int
+ * @av: arguments
+ * Return: string
+ */
 
 char *argstostr(int ac, char **av)
 {
-int i, j, k = 0;
-char *concat = NULL;
+int i = 0, nc = 0, j = 0, cmpt = 0;
+char *s;
+
 if (ac == 0 || av == NULL)
-return (NULL);
+	return (NULL);
+
+for (; i < ac; i++, nc++)
+	nc += _strlen(av[i]);
+
+s = malloc(sizeof(char) * nc + 1);
+if (s == 0)
+	return (NULL);
+
 for (i = 0; i < ac; i++)
-for (j = 0; av[i][j] != '\0'; j++)
-k++;
-concat = malloc(sizeof(char) * (k + ac + 1));
-if (concat == NULL)
-return (NULL);
-for (i = 0, k = 0; i < ac; i++)
 {
-for (j = 0; av[i][j] != '\0'; j++, k++)
-concat[k] = av[i][j];
-concat[k] = '\n';
-k++;
+	for (j = 0; av[i][j] != '\0'; j++, cmpt++)
+		s[cmpt] = av[i][j];
+
+	s[cmpt] = '\n';
+	cmpt++;
 }
-concat[k] = '\0';
-return (concat);
+s[cmpt] = '\0';
+
+return (s);
 }
