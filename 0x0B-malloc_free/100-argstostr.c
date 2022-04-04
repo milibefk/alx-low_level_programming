@@ -1,41 +1,32 @@
 #include "main.h"
-#include "stdlib.h"
-#include "stddef.h"
+#include <stdlib.h>
 
 /**
- * argstostr - concatenate all arguments into a new string
- * @ac: the argument count
- * @av: the argument vector
- *
- * Return: NULL memory allocation fails, ac is 0 or av is NULL,
- * otherwise return s pointer to the new string
- */
+ * argstostr - concatenates arguments.
+ * @ac: number of string to be concatenated.
+ * @av: strings to be concatenated.
+ * Return: String concatenated.
+*/
+
 char *argstostr(int ac, char **av)
 {
-	char *cat, *chr;
-	int arg, size;
-
-	if (!ac || !av)
-		return (NULL);
-
-	for (arg = 0, size = 1; arg < ac; ++arg, ++size)
-	{
-		for (chr = av[arg]; *chr; ++chr, ++size)
-			;
-	}
-
-	cat = (char *) malloc(sizeof(char) * size);
-
-	if (!cat)
-		return (NULL);
-
-	for (arg = 0, size = 0; arg < ac; ++arg, ++size)
-	{
-		for (chr = av[arg]; *chr; ++chr, ++size)
-			cat[size] = *chr;
-		cat[size] = '\n';
-	}
-
-	cat[size] = '\0';
-	return (cat);
+int i, j, k = 0;
+char *concat = NULL;
+if (ac == 0 || av == NULL)
+return (NULL);
+for (i = 0; i < ac; i++)
+for (j = 0; av[i][j] != '\0'; j++)
+k++;
+concat = malloc(sizeof(char) * (k + ac + 1));
+if (concat == NULL)
+return (NULL);
+for (i = 0, k = 0; i < ac; i++)
+{
+for (j = 0; av[i][j] != '\0'; j++, k++)
+concat[k] = av[i][j];
+concat[k] = '\n';
+k++;
+}
+concat[k] = '\0';
+return (concat);
 }
