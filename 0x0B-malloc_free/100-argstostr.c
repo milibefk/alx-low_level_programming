@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-char *argstostr(int ac, char *av)
+char *argstostr(int ac, char **av)
 {
 	int i, j;
 	int count = 0;
