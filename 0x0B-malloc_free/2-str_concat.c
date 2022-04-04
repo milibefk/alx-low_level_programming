@@ -1,46 +1,45 @@
 #include <stdlib.h>
 
 /**
- * alloc_grid - Creates a 2 dimensional array of integers
+ * str_concat - Concatenate two strings
  *
- * @width: Width/rows of the 2D array
+ * @s1: A string to be concatenated
  *
- * @height: Height/columns of the 2D array
+ * @s2: A string to be concatenated
  *
- * Return: Pointer to a 2 dimenstional array of integers
+ * Return: Pointer to newly allocated memory
+ * which is equal to @s1 + @s2 (SUCCESS) OR
+ * NULL (FAILURE)
  */
 
-int **alloc_grid(int width, int height)
+char *str_concat(char *s1, char *s2)
 {
-	int i, j, f, **alloc_mem;
+	unsigned int s1_length = 0;
+	unsigned int s2_length = 0;
+	char *alloc_mem;
+	unsigned int i, j;
 
-	if (width <= 0 || height <= 0)
-		return ('\0');
+	if (s1 == NULL)
+		s1 = "";
 
-	alloc_mem = malloc(sizeof(int *) * height);
+	if (s2 == NULL)
+		s2 = "";
 
+	while (*(s1 + s1_length) != '\0')
+		s1_length++;
+
+	while (*(s2 + s2_length) != '\0')
+		s2_length++;
+
+	alloc_mem = malloc(1 + (s1_length * sizeof(*s1)) + (s2_length * sizeof(*s2)));
 	if (alloc_mem == NULL)
-	{
-		free(alloc_mem);
 		return ('\0');
-	}
 
-	for (i = 0; i < height; i++)
-	{
-		alloc_mem[i] = malloc(sizeof(int) * width);
+	for (i = 0; i < s1_length; i++)
+		alloc_mem[i] = *(s1 + i);
 
-		if (alloc_mem[i] == NULL)
-		{
-			for (f = i; f >= 0; f--)
-				free(alloc_mem[f]);
-
-			free(alloc_mem);
-			return ('\0');
-		}
-
-		for (j = 0; j < width; j++)
-			alloc_mem[i][j] = 0;
-	}
+	for (j = 0; j < s2_length; j++, i++)
+		alloc_mem[i] = *(s2 + j);
 
 	return (alloc_mem);
 }
