@@ -1,84 +1,44 @@
+#include "main.h"
 #include <stdlib.h>
 
 /**
- * strtow - char
- * @str: pointer to string params
- * Return: char
+ * argstostr - function that concatenates all the arguments
+ * of your program.
+ * @ac: argument ac.
+ * @av: argument double pointer av.
+ * Return: pointer str.
  */
 
-char **strtow(char *str)
+char *argstostr(int ac, char **av)
 {
-	int i = 0, j = 0, k = 0;
-	int len = 0, count = 0;
-	char **f, *col;
+	char *new_string;
+	int a = 0, b = 0, size = 0;
 
-	if (!str || !*str)
-	{
+	if (ac == 0 || av == NULL)
 		return (NULL);
-	}
 
-	while (*(str + i))
+	for (a = 0; a < ac; a++)
 	{
-		if (*(str + i) != ' ')
-		{
-			if (*(str + i + 1) == ' ' || *(str + i + 1) == 0)
-			{
-				count += 1;
-			}
-		}
-		i++;
+		for (b = 0; av[a][b]; b++)
+			size++;
 	}
+	size++;
+	new_string = malloc(sizeof(char) * (size + ac));
+	size = 0;
 
-	if (count == 0)
-	{
+	if (new_string == NULL)
 		return (NULL);
-	}
-	count += 1;
-	f = malloc(sizeof(char *) * count);
 
-	if (!f)
+	for (a = 0; a < ac; a++)
 	{
-		return (NULL);
+		for (b = 0; av[a][b] != 0; b++)
+		{
+			new_string[size] = av[a][b];
+			size++;
+		}
+
+		new_string[size] = '\n';
+		size++;
 	}
-	i = 0;
-
-	while (*str)
-	{
-		while (*str == ' ' && *str)
-		{
-			str++;
-		}
-		len = 0;
-
-		while (*(str + len) != ' ' && *(str + len))
-		{
-			len += 1;
-		}
-		len += 1;
-		col = malloc(sizeof(char) * len);
-
-		if (!col)
-		{
-			for (k = j - 1; k >= 0; k--)
-			{
-				free(f[k]);
-			}
-			free(f);
-			return (NULL);
-		}
-
-		for (k = 0; k < (len - 1);  k++)
-		{
-			*(col + k) = *(str++);
-		}
-		*(col + k) = '\0';
-		*(f + j) = col;
-
-		if (j < (count - 1))
-		{
-			j++;
-		}
-	}
-	*(f + j) = NULL;
-	return (f);
-} /*yes*/
+	return (new_string);
+}
