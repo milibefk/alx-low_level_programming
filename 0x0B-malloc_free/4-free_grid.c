@@ -1,22 +1,23 @@
-#include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * free_grid - Entry point
- *@grid: rows of matrix
- *@height: columns of string
- * Return: a pointer to a 2 dimensional array of integers or null
+ * free_grid - Free a 2 dimensional grid previously created by your
+ * alloc_grid function
+ *
+ * @grid: The grid we'll free up
+ * @height: The number of rows in the grid
+ *
+ * Return: Nothing
  */
+
 void free_grid(int **grid, int height)
 {
-int i;
-int *p;
+	int i = 0;
 
-for (i = 0; i < height; i++)
-{
-p = grid[i];
-free(p);
-}
-free(grid);
+	while (i < height)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
 }
