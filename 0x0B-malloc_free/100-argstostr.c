@@ -11,8 +11,7 @@
  * NULL if @ac == 0 or @av == NULL (FAILURE) or
  * NULL if if insufficient memory was available (FAILURE)
  */
-
-void char *argstostr(int ac, char **av)
+char *argstostr(int ac, char *av)
 {
 	int i, j;
 	int count = 0;
