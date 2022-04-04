@@ -1,51 +1,46 @@
-#include <stdlib.h>
+#include "holberton.h"
 #include <stdio.h>
-/**
- * argstostr - Concatenates all the arguments of the program
- *
- * @ac: Argument total count
- *
- * @av: Pointer to arguments
- *
- * Retunr: Pointer to concatenated string (SUCCESS) or
- * NULL if @ac == 0 or @av == NULL (FAILURE) or
- * NULL if if insufficient memory was available (FAILURE)
- */
+#include <stdlib.h>
 
+/**
+ * argstostr - concatenates all the arguments of your program
+ *@ac: number of arguments
+ *@av: arguments
+ * Return: a pointer to a new string
+ */
 char *argstostr(int ac, char **av)
 {
-	int i, j;
-	int count = 0;
-	int t_count = 0;
-	char *result;
+int i;
+int j;
+char *p = NULL;
+int k;
+int ext;
 
-	if (ac == 0 || av == NULL)
-		return ('\0');
+k = 0;
+ext = 0;
+if (ac == 0 || av == NULL)
+return (NULL);
+for (i = 0; i < ac; i++)
+{
+for (j = 0; av[i][j] != '\0'; j++)
+{
+ext++;
+}
+}
 
-	for (i = 0; i < ac; i++)
-	{
-		for (j = 0; av[i][j] != '\0'; j++)
-			t_count++;
-
-		t_count++;
-	}
-
-	result = malloc(sizeof(char) * t_count + 1);
-
-	if (result == NULL)
-	{
-		return ('\0');
-	}
-
-	for (i = 0; i < ac; i++)
-	{
-		for (j = 0; av[i][j] != '\0'; j++)
-		{
-			result[count++] = av[i][j];
-		}
-		result[count++] = '\n';
-	}
-
-	result[t_count] = '\0';
-	return (result);
+p = (char *)malloc(ext + ac + 1 * sizeof(char));
+if (p == NULL)
+return (NULL);
+for (i = 0; i < ac; i++)
+{
+for (j = 0; av[i][j] != '\0'; j++)
+{
+p[k] = av[i][j];
+k++;
+}
+p[k] = '\n';
+k++;
+}
+p[k] = '\0';
+return (p);
 }
