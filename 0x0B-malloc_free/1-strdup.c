@@ -36,3 +36,4 @@ char *_strdup(char **str)
 
 	return (alloc_mem);
 }
+ 
