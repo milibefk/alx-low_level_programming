@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "holberton.h"
+
 
 void populateResult(char *dest, char *n1, int n1_len, char *n2, int n2_len);
 int getLengthOfNum(char *str);
