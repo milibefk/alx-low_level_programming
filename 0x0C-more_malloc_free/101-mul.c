@@ -1,164 +1,232 @@
 #include "main.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-char * mult_large(char *, char *, int, int);
-unsigned long _pow10(unsigned long n);
-void add_zeros(unsigned long n, unsigned long p);
-void print_number(unsigned long n);
+int find_len(char *str);
+char *create_xarray(int size);
+char *iterate_zeroes(char *str);
+void get_prod(char *prod, char *mult, int digit, int zeroes);
+void add_nums(char *final_prod, char *next_prod, int next_len);
 
 /**
- *main - multiplies two different intergers
- *@argc: no of arguments
- *@argv: array of arguments
- *Return: zero
+ * find_len - Finds the length of a string.
+ * @str: The string to be measured.
+ *
+ * Return: The length of the string.
  */
+int find_len(char *str)
+{
+	int len = 0;
 
+	while (*str++)
+		len++;
+
+	return (len);
+}
+
+/**
+ * create_xarray - Creates an array of chars and initializes it with
+ *                 the character 'x'. Adds a terminating null byte.
+ * @size: The size of the array to be initialized.
+ *
+ * Description: If there is insufficient space, the
+ *              function exits with a status of 98.
+ * Return: A pointer to the array.
+ */
+char *create_xarray(int size)
+{
+	char *array;
+	int index;
+
+	array = malloc(sizeof(char) * size);
+
+	if (array == NULL)
+		exit(98);
+
+	for (index = 0; index < (size - 1); index++)
+		array[index] = 'x';
+
+	array[index] = '\0';
+
+	return (array);
+}
+
+/**
+ * iterate_zeroes - Iterates through a string of numbers containing
+ *                  leading zeroes until it hits a non-zero number.
+ * @str: The string of numbers to be iterate through.
+ *
+ * Return: A pointer to the next non-zero element.
+ */
+char *iterate_zeroes(char *str)
+{
+	while (*str && *str == '0')
+		str++;
+
+	return (str);
+}
+
+/**
+ * get_digit - Converts a digit character to a corresponding int.
+ * @c: The character to be converted.
+ *
+ * Description: If c is a non-digit, the function
+ *              exits with a status of 98.
+ * Return: The converted int.
+ */
+int get_digit(char c)
+{
+	int digit = c - '0';
+
+	if (digit < 0 || digit > 9)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+
+	return (digit);
+}
+
+/**
+ * get_prod - Multiplies a string of numbers by a single digit.
+ * @prod: The buffer to store the result.
+ * @mult: The string of numbers.
+ * @digit: The single digit.
+ * @zeroes: The necessary number of leading zeroes.
+ *
+ * Description: If mult contains a non-digit, the function
+ *              exits with a status value of 98.
+ */
+void get_prod(char *prod, char *mult, int digit, int zeroes)
+{
+	int mult_len, num, tens = 0;
+
+	mult_len = find_len(mult) - 1;
+	mult += mult_len;
+
+	while (*prod)
+	{
+		*prod = 'x';
+		prod++;
+	}
+
+	prod--;
+
+	while (zeroes--)
+	{
+		*prod = '0';
+		prod--;
+	}
+
+	for (; mult_len >= 0; mult_len--, mult--, prod--)
+	{
+		if (*mult < '0' || *mult > '9')
+		{
+			printf("Error\n");
+			exit(98);
+		}
+
+		num = (*mult - '0') * digit;
+		num += tens;
+		*prod = (num % 10) + '0';
+		tens = num / 10;
+	}
+
+	if (tens)
+		*prod = (tens % 10) + '0';
+}
+
+/**
+ * add_nums - Adds the numbers stored in two strings.
+ * @final_prod: The buffer storing the running final product.
+ * @next_prod: The next product to be added.
+ * @next_len: The length of next_prod.
+ */
+void add_nums(char *final_prod, char *next_prod, int next_len)
+{
+	int num, tens = 0;
+
+	while (*(final_prod + 1))
+		final_prod++;
+
+	while (*(next_prod + 1))
+		next_prod++;
+
+	for (; *final_prod != 'x'; final_prod--)
+	{
+		num = (*final_prod - '0') + (*next_prod - '0');
+		num += tens;
+		*final_prod = (num % 10) + '0';
+		tens = num / 10;
+
+		next_prod--;
+		next_len--;
+	}
+
+	for (; next_len >= 0 && *next_prod != 'x'; next_len--)
+	{
+		num = (*next_prod - '0');
+		num += tens;
+		*final_prod = (num % 10) + '0';
+		tens = num / 10;
+
+		final_prod--;
+		next_prod--;
+	}
+
+	if (tens)
+		*final_prod = (tens % 10) + '0';
+}
+
+/**
+ * main - Multiplies two positive numbers.
+ * @argv: The number of arguments passed to the program.
+ * @argc: An array of pointers to the arguments.
+ *
+ * Description: If the number of arguments is incorrect or one number
+ *              contains non-digits, the function exits with a status of 98.
+ * Return: Always 0.
+ */
 int main(int argc, char *argv[])
 {
-int j;
-int k;
-unsigned long m;
-char *p;
-char *endptr;
-j = 0;
-k = 0;
-if (argc != 3)
-{
-putchar('E');
-putchar('r');
-putchar('r');
-putchar('o');
-putchar('r');
-putchar('\n');
-exit(98);
-}
-p = argv[1];
-while (p[j] != '\0')
-{
-if (p[j] < 48 || p[j] > 57)
-{
-putchar('E');
-putchar('r');
-putchar('r');
-putchar('o');
-putchar('r');
-putchar('\n');
-exit(98);
-}
-j++;
-}
-p = argv[2];
-while (p[k] != '\0')
-{
-if (p[k] < 48 || p[k] > 57)
-{
-putchar('E');
-putchar('r');
-putchar('r');
-putchar('o');
-putchar('r');
-putchar('\n');
-exit(98);
-}
-k++;
-}
-if (j + k >= 10)
-{
-mult_large(argv[1], argv[2], j, k);
-}
-else
-{
-m = strtol(argv[1], &endptr, 10) * strtol(argv[2], &endptr, 10);
-if (m == 0)
-putchar(0 + '0');
-else
-print_number(m);
-putchar('\n');
-return (0);
-   }
-}
+	char *final_prod, *next_prod;
+	int size, index, digit, zeroes = 0;
 
-/**
- *mutl - does the multiplication of large values
- *@a: first number
- *@b: second number
- *Return: void
- */
+	if (argc != 3)
+	{
+		printf("Error\n");
+		exit(98);
+	}
 
-char *mult_large(char *a, char *b, int c, int d)
-{
-int i;
-int j;
-char *p;
-for (i = 0; a[i] != 0; a++)
-{
-pass
-}
-}
-/**
- *print_number - prints an integer
- *@n: number to be printed
- *Return: void
- */
+	if (*(argv[1]) == '0')
+		argv[1] = iterate_zeroes(argv[1]);
+	if (*(argv[2]) == '0')
+		argv[2] = iterate_zeroes(argv[2]);
+	if (*(argv[1]) == '\0' || *(argv[2]) == '\0')
+	{
+		printf("0\n");
+		return (0);
+	}
 
-void print_number(unsigned long n)
-{
-unsigned long quo;
-unsigned long i;
-unsigned long p;
-i = 0;
-quo = n;
-if (quo >= 10)
-{
-while (quo >= 10)
-{
-quo = quo / 10;
-i++;
-}
-putchar(quo + '0');
-p = _pow10(i);
-n = (n - (quo *p));
-add_zeros(n, p);
-if (n >= 10)
-print_number(n);
-else
-putchar(n + '0');
-return;
-}
-else
-{
-putchar(n + '0');
-return;
-}
-}
+	size = find_len(argv[1]) + find_len(argv[2]);
+	final_prod = create_xarray(size + 1);
+	next_prod = create_xarray(size + 1);
 
-/**
- *_pow10 - calculates the value of 10 raised to an integer
- *@n: value of power
- *Return: void
- */
-unsigned long _pow10(unsigned long n)
-{
-unsigned long i;
-unsigned long tmp;
-tmp = 10;
-for (i = 1; i < n; i++)
-tmp *= 10;
-return (tmp);
-}
+	for (index = find_len(argv[2]) - 1; index >= 0; index--)
+	{
+		digit = get_digit(*(argv[2] + index));
+		get_prod(next_prod, argv[1], digit, zeroes++);
+		add_nums(final_prod, next_prod, size - 1);
+	}
+	for (index = 0; final_prod[index]; index++)
+	{
+		if (final_prod[index] != 'x')
+			putchar(final_prod[index]);
+	}
+	putchar('\n');
 
-/**
- *add_zeros - adds appropratite amount of zeros before digits
- *@n: integer that zeros should be added before
- *@p: Power of MSD of initial integer
- *Return: void
- */
+	free(next_prod);
+	free(final_prod);
 
-void add_zeros(unsigned long n, unsigned long p)
-{
-unsigned long i;
-for (i = p / 10; i > 1 && n < i; i /= 10)
-{
-putchar(0 + '0');
-}
-return;
+	return (0);
 }
