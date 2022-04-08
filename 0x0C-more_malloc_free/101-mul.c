@@ -64,17 +64,18 @@ char *_initialize_array(char *ar, int lar)
  *
  * Return: length of the number.
  */
-int get_digit(char c)
+int _checknum(char *argv[], int n)
 {
-	int digit = c - '0';
+	int ln;
 
-	if (digit < 0 || digit > 9)
-	{
-		printf("Error\n");
-		exit(98);
-	}
+	for (ln = 0; argv[n][ln]; ln++)
+		if (!isdigit(argv[n][ln]))
+		{
+			printf("Error\n");
+			exit(98);
+		}
 
-	return (digit);
+	return (ln);
 }
 /**
  * main - Entry point.
