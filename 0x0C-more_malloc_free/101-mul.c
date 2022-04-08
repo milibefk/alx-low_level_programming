@@ -61,7 +61,8 @@ char *_initialize_array(char *ar, int lar)
 int _checknum(char *argv[], int n)
 {
 	int bn;
-	for (bn = 0; argv[n][bn]; bn++)if (!isdigit(argv[n][bn]))
+	for (bn = 0; argv[n][bn]; bn++)
+		if (!isdigit(argv[n][bn]))
 		{
 			printf("Error\n");
 			exit(98);
