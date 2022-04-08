@@ -61,7 +61,6 @@ char *_initialize_array(char *ar, int lar)
 int _checknum(char *argv[], int n)
 {
 	int ln;
-
 	for (ln = 0; argv[n][ln]; ln++)
 		if (!isdigit(argv[n][ln]))
 		{
