@@ -64,20 +64,18 @@ char *_initialize_array(char *ar, int lar)
  *
  * Return: length of the number.
  */
-int _checknum(char *argv[], int n)
+int get_digit(char c)
 {
-	int ln;
+	int digit = c - '0';
 
-	for (ln = 0; argv[n][ln]; ln++)
-		if (!isdigit(argv[n][ln]))
-		{
-			printf("Error\n");
-			exit(98);
-		}
+	if (digit < 0 || digit > 9)
+	{
+		printf("Error\n");
+		exit(98);
+	}
 
-	return (ln);
+	return (digit);
 }
-
 /**
  * main - Entry point.
  * program that multiplies two positive numbers.
