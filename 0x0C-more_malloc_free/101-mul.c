@@ -14,29 +14,22 @@ char *iterate_zeroes(char *str);
 void get_prod(char *prod, char *mult, int digit, int zeroes);
 void add_nums(char *final_prod, char *next_prod, int next_len);
 
-void _is_zero(char *argv[])
+char *create_xarray(int size)
 {
-	int i, isn1 = 1, isn2 = 1;
+	char *array;
+	int index;
 
-	for (i = 0; argv[1][i]; i++)
-		if (argv[1][i] != '0')
-		{
-			isn1 = 0;
-			break;
-		}
+	array = malloc(sizeof(char) * size);
 
-	for (i = 0; argv[2][i]; i++)
-		if (argv[2][i] != '0')
-		{
-			isn2 = 0;
-			break;
-		}
+	if (array == NULL)
+		exit(98);
 
-	if (isn1 == 1 || isn2 == 1)
-	{
-		printf("0\n");
-		exit(0);
-	}
+	for (index = 0; index < (size - 1); index++)
+		array[index] = 'x';
+
+	array[index] = '\0';
+
+	return (array);
 }
 
 /**
@@ -92,7 +85,8 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 		printf("Error\n"), exit(98);
-	ln1 = _checknum(argv, 1), ln2 = _checknum(argv, 2);
+	ln1 = _checknum(argv, 1), 
+	ln2 = _checknum(argv, 2);
 	_is_zero(argv), lnout = ln1 + ln2, nout = malloc(lnout + 1);
 	if (nout == NULL)
 		printf("Error\n"), exit(98);
