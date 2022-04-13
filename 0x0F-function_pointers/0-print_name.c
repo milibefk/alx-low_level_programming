@@ -8,13 +8,12 @@
  * Return: Nothing.
 **/
 void print_name(char *name, void (*f)(char *));
-{
-if (name == NULL || f == NULL)
-{
-return(0);
-}
-else
-{
-f(name);
-}
+if (name)
+    {
+        for (int i = 0; s[i]; i++)
+        {
+            f(&s[i]);
+        }
+    }
+    return ;
 }
