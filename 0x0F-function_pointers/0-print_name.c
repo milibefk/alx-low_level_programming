@@ -10,9 +10,9 @@
 void print_name(char *name, void (*f)(char *));
 if (name)
     {
-        for (int i = 0; s[i]; i++)
+        for (int i = 0; name[i]; i++)
         {
-            f(&s[i]);
+            f(&name[i]);
         }
     }
     return ;
