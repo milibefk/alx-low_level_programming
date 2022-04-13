@@ -1,5 +1,6 @@
 #include "3-calc.h"
 /**
+ * Auth: Miliyon Befkadu
  * op_add - this function adds two numbers
  * @a:the first number
  * @b:the second number.
