@@ -1,21 +1,14 @@
-#include <stdio.h>
 #include "function_pointers.h"
 
 /**
- * print_name - prints a name as is
- * @name: name of the person
- * @f: is pointer
- * Return: Nothing.
-**/
+ * print_name - prints name
+ * @name: name to be print
+ * @f: callback function that prints name
+ */
 void print_name(char *name, void (*f)(char *))
- 
 {
-if (name)
-    {
-        for (int i = 0; name[i]; i++)
-        {
-            f(&name[i]);
-        }
-    }
-    return ;
+	if (!f)
+		return;
+	(*f)(name);
+
 }
