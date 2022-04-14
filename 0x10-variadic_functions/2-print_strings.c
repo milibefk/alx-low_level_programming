@@ -2,6 +2,7 @@
 #include <stdarg.h>
 
 /**
+ * Auth: Miliyon Befkadu
  * print_strings - prints numbers
  * @separator: pointer to the string to be printed between strings
  * @n: number of strings passed to the function
