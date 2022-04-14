@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 /**
+ * Auth: Miliyon Befkadu
  * sum_them_all - sum of all its parameters
  * @n: total number of parameters
  * Return: sum of value parameters
